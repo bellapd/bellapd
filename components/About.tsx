@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function About() {
   return (
-    <div className="container mx-auto px-4 py-8 mt-10">
+    <div id="about" className="container mx-auto px-4 py-8 mt-10">
       <h1 className="text-4xl font-bold mb-4 text-white italic">About</h1>
       <div className="container mx-auto">
         <p className="mb-4 text-lg text-white max-w-xl max-h-xl overflow-hidden text-justify leading-relaxed">
@@ -19,7 +19,7 @@ function About() {
         </p>
       </div>
       <Link href="/your-resume.pdf">
-        <button className="rounded-full bg-white text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-9 py-2  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
+        <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-9 py-2  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
           See My Resume
         </button>
       </Link>

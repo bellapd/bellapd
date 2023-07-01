@@ -2,7 +2,7 @@ import Main from "../components/Main";
 import About from "../components/About";
 import Navbar from "../components/Navbar";
 import Project from "../components/Project";
-import Contact from "@/components/Contact";
+import Contact from "../components/Contact";
 import Image from "next/image";
 
 export default function Home() {

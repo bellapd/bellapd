@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  --scroll-behavior: smooth!important;
+  scroll-behavior: smooth!important;
+}
+
 .css-selector {
   @apply bg-gradient-to-r from-teal-900 to-gray-300;
   background-size: 400% 400%;
@@ -32,20 +37,13 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
   color: rgb(var(--foreground-rgb));
   font-family: "Abhaya Libre", serif;
 }
 
 :root {
-  --navBg: rgba(6, 11, 38, 0.8);
+  --navBg: #7097a8;
 }
 
 .navbar {
@@ -100,7 +98,7 @@ body {
 }
 
 .nav-text a:hover {
-  background-color: #1a83ff;
+  background-color: #F24E1E
 }
 
 .nav-menu-items {

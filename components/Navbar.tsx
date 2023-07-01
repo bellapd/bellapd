@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-// ICONS
-import * as FaIcons from "react-icons/fa"; //Now i get access to all the icons
+import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-
 import { IconContext } from "react-icons";
-
-// ROUTING
-
 import Link from "next/link";
-
-// DATA FILE
-import { SidebarData } from "./SlidebarData";
+import { Navbardata } from "./Navbardata";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -20,7 +13,6 @@ export default function Navbar() {
   return (
     <>
       <IconContext.Provider value={{ color: "#FFF" }}>
-        {/* All the icons now are white */}
         <div className="navbar">
           <Link href="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
@@ -34,12 +26,12 @@ export default function Navbar() {
               </Link>
             </li>
 
-            {SidebarData.map((item, index) => {
+            {Navbardata.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
                   <Link href={item.path}>
                     {item.icon}
-                    <span>{item.title}</span>
+                    <span className="italic font-bold">{item.title}</span>
                   </Link>
                 </li>
               );

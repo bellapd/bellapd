@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Contact() {
   return (
-    <div className="container mx-auto px-4 py-8 mt-10">
+    <div id="contact" className="container mx-auto px-4 py-8 mt-10">
       <h1 className="text-4xl font-bold mb-4 text-white italic">
         Get in touch
       </h1>

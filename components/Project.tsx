@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 
 function Project() {
   return (
-    <div className="container mx-auto px-4 py-8 mt-10">
+    <div id="projects" className="container mx-auto px-4 py-8 mt-10">
       <h1 className="text-4xl font-bold mb-4 text-white italic">Projects</h1>
       <div className="container mx-auto">
         <ol className="relative border-l border-gray-200">
@@ -22,8 +22,8 @@ function Project() {
             </p>
             <div>
               <Link href="/your-resume.pdf">
-                <button className="rounded-full bg-white text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
-                  See More
+                <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
+                  See More 
                 </button>
               </Link>
               <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
@@ -43,7 +43,7 @@ function Project() {
             </p>
             <div>
               <Link href="/your-resume.pdf">
-                <button className="rounded-full bg-white text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
+                <button className="rounded-full bg-white italic text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
                   See More
                 </button>
               </Link>
@@ -61,7 +61,7 @@ function Project() {
             </p>
             <div>
               <Link href="/your-resume.pdf">
-                <button className="rounded-full bg-white text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1 hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
+                <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1 hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
                   See More
                 </button>
               </Link>
