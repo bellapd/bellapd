@@ -1,13 +1,34 @@
 import Main from "../components/Main";
+import About from "../components/About";
+import Navbar from "../components/Navbar";
+import Milestone from "../components/Milestone";
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <div>
-      <div className="flex">
-        <div className="w-2/4 h-screen fixed overflow-y-auto">
+    <div className="css-selector">
+      <div className="background-image">
+        <Image
+          src="/background.svg"
+          width={900}
+          height={900}
+          objectFit="cover"
+          alt="Background"
+          className="absolute top-0 left-0 z-0 mr-20"
+        />
+      </div>
+      <div className="h-screen flex">
+        <div className="w-2/4 fixed h-full overflow-y-auto">
+          <Navbar />
           <Main />
         </div>
-        <div className="w-2/4 h-screen ml-auto overflow-y-auto">
-          WORK ON PROGRESS
+        <div
+          className="w-1/2 ml-auto overflow-y-auto ml-20"
+        >
+          <div className="relative z-10">
+            <About />
+            <Milestone />
+          </div>
         </div>
       </div>
     </div>
