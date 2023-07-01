@@ -1,7 +1,8 @@
 import Main from "../components/Main";
 import About from "../components/About";
 import Navbar from "../components/Navbar";
-import Milestone from "../components/Milestone";
+import Project from "../components/Project";
+import Contact from "@/components/Contact";
 import Image from "next/image";
 
 export default function Home() {
@@ -18,16 +19,17 @@ export default function Home() {
         />
       </div>
       <div className="h-screen flex">
-        <div className="w-2/4 fixed h-full overflow-y-auto">
+        <div className="w-2/4 fixed h-full">
           <Navbar />
           <Main />
         </div>
         <div
-          className="w-1/2 ml-auto overflow-y-auto ml-20"
+          className="w-1/2 ml-auto overflow-y-scroll ml-20"
         >
           <div className="relative z-10">
             <About />
-            <Milestone />
+            <Project />
+            <Contact />
           </div>
         </div>
       </div>
