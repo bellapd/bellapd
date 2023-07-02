@@ -18,14 +18,14 @@ function About() {
           philosophy.
         </p>
       </div>
-      <Link href="/your-resume.pdf">
-        <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-9 py-2  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
+      <Link href="https://drive.google.com/file/d/1W5FzNKqdJ7d1fhA8YoUEtaQAr_LMGANf/view?usp=sharing">
+        <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-9 py-2 hover:bg-[#F24E1E] hover:text-white transition-colors duration-300 mb-4">
           See My Resume
         </button>
       </Link>
-      <div className="mt-5 grid grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
+          <kbd className="px-2 py-1 text-xs sm:text-sm font-semibold text-white bg-transparent rounded-full shadow-blur">
             Python
           </kbd>
         </div>

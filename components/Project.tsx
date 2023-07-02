@@ -21,12 +21,14 @@ function Project() {
               Chakra UI.
             </p>
             <div>
-              <Link href="/your-resume.pdf">
+              <Link href="/projects/personalwebv1">
                 <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
-                  See More 
+                  See More
                 </button>
               </Link>
-              <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              <Link href="https://github.com/bellapd/bellapd-v1.git">
+                <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              </Link>
             </div>
           </li>
           <li className="mb-10 ml-4">
@@ -47,7 +49,9 @@ function Project() {
                   See More
                 </button>
               </Link>
-              <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              <Link href="https://github.com/bellapd/teachme.git">
+                <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              </Link>
             </div>
           </li>
 
@@ -65,7 +69,9 @@ function Project() {
                   See More
                 </button>
               </Link>
-              <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              <Link href="https://github.com/bellapd/bellapd.git">
+                <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
+              </Link>
             </div>
           </li>
         </ol>
