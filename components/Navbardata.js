@@ -2,9 +2,15 @@ import React from "react";
 
 import {SiAboutdotme} from "react-icons/si";
 import {BsPersonWorkspace} from "react-icons/bs";
-import {AiOutlineMail} from "react-icons/ai";
+import {AiOutlineMail,AiOutlineHome} from "react-icons/ai";
 
 export const Navbardata = [
+  {
+    title: "Home",
+    path: "/",
+    icon: <AiOutlineHome />,
+    cName: "nav-text"
+  },
   {
     title: "About",
     path: "/#about",

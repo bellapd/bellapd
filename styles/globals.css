@@ -2,15 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
-  --scroll-behavior: smooth;
-  scroll-behavior: smooth;
+html {
+  --scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
 }
 
 .css-selector {
   @apply bg-gradient-to-r from-teal-900 to-gray-300;
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes gradientAnimation {
@@ -43,9 +45,8 @@ body {
 }
 
 :root {
-  --navBg: rgba(112, 151, 168, 0.8); /* Set the opacity value as needed */
+  --navBg: #7097a8; /* Set the opacity value as needed */
 }
-
 
 .navbar {
   height: 80px;
@@ -99,7 +100,7 @@ body {
 }
 
 .nav-text a:hover {
-  background-color: #F24E1E
+  background-color: #f24e1e;
 }
 
 .nav-menu-items {
@@ -130,4 +131,37 @@ span {
 
 .shadow-blur {
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-provider {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-slider {
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-slide {
+  display: flex !important;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-image-container {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+.main-container {
+  position: relative;
+  z-index: 1;
 }

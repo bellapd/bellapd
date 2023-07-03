@@ -44,7 +44,7 @@ function Project() {
               A platform for students to find tutors.
             </p>
             <div>
-              <Link href="/your-resume.pdf">
+              <Link href="/projects/teachme">
                 <button className="rounded-full bg-white italic text-md shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1  hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
                   See More
                 </button>
