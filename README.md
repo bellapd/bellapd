@@ -13,9 +13,14 @@
 ##### BIO
 
 - 🏫 I'm currently studying at **National Tsing Hua University**
-- ⚙️ I use : `React`, `Next-js`, `.js`, `.tsx`, `.css`, `Tailwind css`, `Docker`.
-- 🌱 Learning all about **web development (Frontend & Backend)** and **Numerical Optimization**
-- 💬 Ping me about **design**, **development**, **design thinking**
+- ⚙️ Tech Stack:
+    1. Fullstack:
+   `React`, `Next-js`, `.js`, `.tsx`, `.css`, `Tailwind css`, `Vercel`.
+    2. Data Analysis and Computational Statistics
+    `Python`,`Ruby`,`R`,`Docker`,`Tableau`,`SQL`
+    3. Machine Learning
+    `TensorFlow`
+- 🌱 I am currently learning about **Data Analysis and Computational Statistics**,**Numerical Optimization**,**Service Security**
 - 📫 Reach me: [annabellaputridirgo@gmail.com]
 
 ![Bella's GitHub stats](https://github-readme-stats.vercel.app/api?username=bellapd&theme=radical&hide_border=true)
