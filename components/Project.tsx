@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 
 function Project() {
   return (
-    <div id="projects" className="container mx-auto px-4 py-8 mt-10">
+    <div id="projects" className="container mx-auto px-4 py-8 mt-4">
       <h1 className="text-4xl font-bold mb-4 text-white italic">Projects</h1>
       <div className="container mx-auto">
         <ol className="relative border-l border-gray-200">
@@ -29,6 +29,17 @@ function Project() {
               <Link href="https://github.com/bellapd/bellapd-v1.git">
                 <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
               </Link>
+              <div className="mt-4">
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  Next.js
+                </kbd>
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  Typescript
+                </kbd>
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  Vercel
+                </kbd>
+              </div>
             </div>
           </li>
           <li className="mb-10 ml-4">
@@ -52,26 +63,17 @@ function Project() {
               <Link href="https://github.com/bellapd/teachme.git">
                 <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
               </Link>
-            </div>
-          </li>
-
-          <li className="ml-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
-            <h3 className="text-lg font-semibold text-white">
-              Newest Personal Website
-            </h3>
-            <p className=" mb-4 text-base font-normal text-white">
-              Build with Next.js and Tailwind CSS (WIP)
-            </p>
-            <div>
-              <Link href="/your-resume.pdf">
-                <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-7 py-1 hover:bg-[#F24E1E] hover:text-white transition-colors duration-300">
-                  See More
-                </button>
-              </Link>
-              <Link href="https://github.com/bellapd/bellapd.git">
-                <FaGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
-              </Link>
+              <div className="mt-4">
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  Next.js
+                </kbd>
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  React
+                </kbd>
+                <kbd className="px-2 py-1 text-s sm:text-sm text-white bg-transparent rounded-full shadow-blur mr-2">
+                  Tailwind CSS
+                </kbd>
+              </div>
             </div>
           </li>
         </ol>

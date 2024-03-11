@@ -7,15 +7,21 @@ function About() {
       <h1 className="text-4xl font-bold mb-4 text-white italic">About</h1>
       <div className="container mx-auto">
         <p className="mb-4 text-lg text-white max-w-xl max-h-xl overflow-hidden text-justify leading-relaxed">
-          I am currently an undergraduate student at National Tsing Hua
-          University in Hsinchu, Taiwan, studying Electrical Engineering and
-          Computer Science. I actively work on web development projects using
-          tools such as React, Next.js, and Docker. In my free time, I enjoy
-          exploring new tools and technologies, not only in the field of
-          software engineering but also in the realm of numerical optimization
-          algorithms. Apart from my academic pursuits, I have a passion for
-          reading books, particularly those related to medicine, psychology, and
-          philosophy.
+          Hey there! I'm currently a senior at National Tsing Hua University,
+          pursuing a double major in Electrical Engineering and Computer
+          Science. My journey into the world of computer science began back in
+          2022 when I discovered my passion for software engineering. Starting
+          with frontend development by creating my own personal website, I
+          gradually delved deeper into the realm of full-stack development.
+          <br />
+          As time passed, my perspective on computers evolved beyond just
+          software engineering. I realized the importance of diversifying my
+          skill set and not limiting myself to one area of expertise. That's why
+          lately, I've been drawn to the field of data analysis, computational
+          statistics, and numerical optimization. I believe in continuously
+          expanding my knowledge and skills to adapt to the ever-changing
+          landscape of technology.
+          <br /> Stay tune for an exciting projects about data analysis!
         </p>
       </div>
       <Link href="https://drive.google.com/file/d/1W5FzNKqdJ7d1fhA8YoUEtaQAr_LMGANf/view?usp=sharing">
@@ -23,53 +29,6 @@ function About() {
           See My Resume
         </button>
       </Link>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs sm:text-sm font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Python
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Docker
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            HTML/CSS
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Typescript
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            React
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Javascript
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Next.js
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur">
-            Figma
-          </kbd>
-        </div>
-        <div className="relative">
-          <kbd className="px-2 py-1 text-xs font-semibold text-white bg-transparent rounded-full shadow-blur hover:bg-gh-hover">
-            Github
-          </kbd>
-        </div>
-      </div>
     </div>
   );
 }

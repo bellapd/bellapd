@@ -8,9 +8,7 @@ html {
 }
 
 .css-selector {
-  @apply bg-gradient-to-r from-teal-900 to-gray-300;
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease-in-out infinite;
+  background-color: #05101a;
   position: relative;
   z-index: 1;
 }
@@ -41,11 +39,12 @@ html {
 
 body {
   color: rgb(var(--foreground-rgb));
-  font-family: "Abhaya Libre", serif;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: 100;
 }
 
 :root {
-  --navBg: #7097a8; /* Set the opacity value as needed */
+  --navBg: #121f2c; /* Set the opacity value as needed */
 }
 
 .navbar {

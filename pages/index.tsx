@@ -24,18 +24,6 @@ export default function Home() {
 
   return (
     <div className="css-selector">
-      {!isMobile && (
-        <div className="background-image">
-          <Image
-            src="/background.svg"
-            width={900}
-            height={900}
-            objectFit="cover"
-            alt="Background"
-            className="absolute top-0 left-0 z-0"
-          />
-        </div>
-      )}
       {isMobile ? (
         <div>
           <Navbar />
