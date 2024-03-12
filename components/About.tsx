@@ -17,8 +17,8 @@ function About() {
           As time passed, my perspective on computers evolved beyond just
           software engineering. I realized the importance of diversifying my
           skill set and not limiting myself to one area of expertise. That's why
-          lately, I've been drawn to the field of data analysis, computational
-          statistics, and numerical optimization. I believe in continuously
+          lately, I've been drawn to the field of <strong className="strong-color">data analysis, computational
+          statistics, and numerical optimization</strong>. I believe in continuously
           expanding my knowledge and skills to adapt to the ever-changing
           landscape of technology.
           <br /> Stay tune for an exciting projects about data analysis!

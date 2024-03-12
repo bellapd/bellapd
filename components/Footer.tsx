@@ -12,7 +12,7 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <AiFillGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]"/>
+          <AiFillGithub className="inline-block ml-4 text-3xl text-white transition-colors duration-300 hover:text-[#F24E1E]" />
         </a>
         <a
           href="https://linkedin.com/in/annabellapd"
