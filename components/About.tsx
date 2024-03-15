@@ -24,7 +24,7 @@ function About() {
           <br /> Stay tune for an exciting projects about data analysis!
         </p>
       </div>
-      <Link href="https://drive.google.com/file/d/1W5FzNKqdJ7d1fhA8YoUEtaQAr_LMGANf/view?usp=sharing">
+      <Link href="https://drive.google.com/file/d/1dZOBymir2dmN6jAKRVSCkXmND_vo-xgx/view?usp=sharing">
         <button className="rounded-full bg-white text-md italic shadow-inner shadow-lg ring-black ring-opacity-25 px-9 py-2 hover:bg-[#F24E1E] hover:text-white transition-colors duration-300 mb-4">
           See My Resume
         </button>
