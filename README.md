@@ -9,6 +9,7 @@
     This is my personal website that I made using Next-js and Tailwind CSS. I made this website to showcase my projects and my skills.
   - [Teach Me] (https://teachme-ss.vercel.app); <br/>
     Teach Me is a web application that helps students to find tutors and vice versa. This project is made for my Software Engineering course.
+  - [Navi Together] WIP
 
 ##### BIO
 
