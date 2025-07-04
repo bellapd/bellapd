@@ -2,6 +2,7 @@
 
 **Graduate Student in Computer Science**
 Institute of Information Systems and Applications
+
 **National Tsing Hua University**, Taiwan
 [bellapd.vercel.app](https://bellapd.vercel.app)
 
@@ -13,7 +14,6 @@ My interdisciplinary background—spanning computer science, data analytics, and
 
 When I'm not coding or researching, you'll likely find me practicing yoga, reading about cognitive science, or exploring new cultures through their food.
 
----
 
 ## 🧠 Current Research Interests
 
@@ -23,7 +23,6 @@ When I'm not coding or researching, you'll likely find me practicing yoga, readi
 * Human-Centered AI & Cognitive Systems
 * Scalable Machine Learning & Big Data Analytics
 
----
 
 ## 🛠 Tech Stack
 
@@ -36,9 +35,8 @@ When I'm not coding or researching, you'll likely find me practicing yoga, readi
 **Data Science & ML**
 `PyTorch`, `TensorFlow`, `Pandas`, `Matplotlib`, `NumPy`
 
----
 
-## 🌐 Contact
+## 🌐 Contact Me
 
 | Method   | Link                                                               |
 | -------- | ------------------------------------------------------------------ |
