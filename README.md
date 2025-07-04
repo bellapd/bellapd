@@ -1,49 +1,49 @@
-# Hello, My name is Bella 
+# Bella Dirgo
 
+**Graduate Student in Computer Science**
+Institute of Information Systems and Applications
+**National Tsing Hua University**, Taiwan
+[bellapd.vercel.app](https://bellapd.vercel.app)
 
-I am a graduate student at National Tsing Hua University, Taiwan, majoring in Computer Science in Institute of Institute of Information Systems and Applications. I focus on analyzing massive datasets, building deep learning models, and contributing to the development of data-driven health systems. I’m particularly passionate about the intersection of human language and technology—especially in the fields of Natural Language Processing (NLP) and Large Language Models (LLMs).
+---
 
-With a background that blends computer science and an interest in cognitive psychology, I approach my projects from a multidisciplinary perspective. I'm especially fascinated by how language shapes human thought and interaction, and how we can design intelligent systems that enhance human capabilities rather than replace them.
+I am a graduate student with a passion for building intelligent, human-centered technologies. My academic and research work focuses on **Natural Language Processing (NLP)**, **Large Language Models (LLMs)**, and **Deep Learning**, particularly applied in the context of digital health and cognitive systems. With a strong foundation in data science and full-stack development, I aim to bridge the gap between machine learning theory and impactful, real-world applications.
 
-Outside of academics, I find balance through yoga, and I love exploring new places and cuisines. Whether it’s a hidden food stall or a local market abroad, I’m always up for a good food trip.
+My interdisciplinary background—spanning computer science, data analytics, and cognitive psychology—enables me to design systems that are both technically sound and socially aware. I believe in building technologies that **enhance human capability**, not replace it.
 
-Live site: [https://bellapd.vercel.app](https://bellapd.vercel.app)
+When I'm not coding or researching, you'll likely find me practicing yoga, reading about cognitive science, or exploring new cultures through their food.
 
-## Tech Stack
+---
 
-Web Development
-- React
-- Next.js
-- Heroku
-- HTML/CSS
-- Tailwind CSS
+## 🧠 Current Research Interests
 
-Programming 
-- Python
-- JavaScript
-- TypeScript
-- R
-- Ruby
-- MATLAB
+* Natural Language Processing & Large Language Models (LLMs)
+* Deep Learning & Neural Architectures
+* Health Informatics & Data-Driven Public Health
+* Human-Centered AI & Cognitive Systems
+* Scalable Machine Learning & Big Data Analytics
 
-Data Science
-- PyTorch
-- TensorFlow
-- Pandas
-- Matplotlib
+---
 
-## Research Interests
-- Natural Language Processing (NLP) & Large Language Models (LLMs)
-- Deep Learning & Neural Networks
-- Health Informatics & Digital Health
-- Big Data Analytics & Scalable Machine Learning
-- Human-Centered AI & Cognitive Systems
+## 🛠 Tech Stack
 
-## Contact
+**Web Development**
+`Next.js`, `React`, `Tailwind CSS`, `Heroku`, `HTML`, `CSS`
 
-| Type     | Link                                                              |
-|----------|-------------------------------------------------------------------|
-| Email    | [belladirgo@gapp.nthu.edu.tw](mailto:belladirgo@gapp.nthu.edu.tw) |
+**Programming Languages**
+`Python`, `JavaScript`, `TypeScript`, `R`, `Ruby`, `MATLAB`
+
+**Data Science & ML**
+`PyTorch`, `TensorFlow`, `Pandas`, `Matplotlib`, `NumPy`
+
+---
+
+## 🌐 Contact
+
+| Method   | Link                                                               |
+| -------- | ------------------------------------------------------------------ |
+| Email    | [belladirgo@gapp.nthu.edu.tw](mailto:belladirgo@gapp.nthu.edu.tw)  |
 | LinkedIn | [linkedin.com/in/annabellapd](https://linkedin.com/in/annabellapd) |
 | GitHub   | [github.com/bellapd](https://github.com/bellapd)                   |
 | Website  | [bellapd.vercel.app](https://bellapd.vercel.app)                   |
+
