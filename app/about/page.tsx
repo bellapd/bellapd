@@ -19,7 +19,7 @@ export default function AboutPage() {
                       variant="outline"
                       className="justify-start rounded-none"
                     >
-                      Download CV
+                      <Link href="https://shorturl.at/Q2YjC"> Download CV</Link>
                     </Button>
                     <Button
                       variant="outline"
@@ -156,19 +156,16 @@ export default function AboutPage() {
                   <div className="space-y-2">
                     <h3 className="font-bold">Data Science</h3>
                     <div className="flex flex-wrap gap-2">
-                      {[
-                        "PyTorch",
-                        "TensorFlow",
-                        "Pandas",
-                        "Matplotlib",
-                      ].map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-2 py-1 bg-secondary text-secondary-foreground text-sm rounded-sm"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                      {["PyTorch", "TensorFlow", "Pandas", "Matplotlib"].map(
+                        (skill) => (
+                          <span
+                            key={skill}
+                            className="px-2 py-1 bg-secondary text-secondary-foreground text-sm rounded-sm"
+                          >
+                            {skill}
+                          </span>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
