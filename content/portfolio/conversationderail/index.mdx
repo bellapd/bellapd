@@ -1,0 +1,130 @@
+---
+title: Predicting Conversational Derailment
+description: "Can we spot toxicity before it happens?"
+technologies: ["HateBERT", "PyTorch", "Transformers", "MLP", "Detoxify"]
+date: "2025-05-27"
+published: true
+image: "/img/derailment_1.png"
+---
+
+## The Problem
+
+Online conversations (especially in open platforms like Wikipedia or Reddit) often begin with civil discussion but can quickly spiral into personal attacks. Detecting such **derailment into toxicity** before it happens is a difficult yet valuable challenge in NLP and platform moderation.
+
+Our team (group of three) explored this idea in our **Pattern Recognition** final project. The main goal was to build a system that could **predict whether a conversation is likely to turn toxic**, even before the offensive message is posted.
+
+## Dataset: Conversations Gone Awry
+
+We used the **"Conversations Gone Awry"** dataset from the [Convokit](https://convokit.cornell.edu/) project, sourced from **Wikipedia Talk Pages**. The dataset contains paired conversations labeled by whether they ultimately derailed into personal attacks (Label 1) or stayed civil (Label 0).
+
+Each conversation consists of several utterances. We explored two variants of the prediction task:
+
+- **Classification**: Use the entire conversation to classify whether the final message is toxic.
+- **Forecasting**: Use only the **first 5 utterances**, excluding the final one, to predict if the conversation will derail.
+
+## Approach
+
+We experimented with different combinations of feature types and model architectures:
+
+### Models
+
+- **HateBERT**: A language model pre-trained specifically on offensive Reddit content. Used to extract contextual [CLS] embeddings from each utterance.
+- **Detoxify**: Used to compute **toxicity scores** (probability between 0 and 1) for each utterance.
+- **MLP Classifier**: A lightweight neural network used for classification over the [CLS] embeddings and/or toxicity features.
+
+### Flowchart
+
+<div className="my-8">
+  <img src="/img/derailment_2.png" alt="Derailment Prediction Flowchart" title="Derailment Prediction Flowchart" />
+</div>
+### Experiment Setup
+
+We fine-tuned HateBERT with:
+
+- LR = `2e-5`, Optimizer = `AdamW`, Batch size = `8`, Epochs = `10`, Early stopping
+- Max tokens = `512`, Loss = CrossEntropy
+
+For the MLP classifier:
+
+- LR = `1e-4`, Batch size = `128`, Epochs = `30`
+- Activation = `LeakyReLU`
+
+## Results
+
+<div className="overflow-x-auto my-6">
+  <table className="min-w-full border border-gray-300 text-sm text-left">
+    <thead className="bg-gray-100">
+      <tr>
+        <th className="border border-gray-300 px-4 py-2" rowSpan={2}>Model</th>
+        <th className="border border-gray-300 px-4 py-2 text-center" colSpan={4}>With Whole Conversation (%)</th>
+        <th className="border border-gray-300 px-4 py-2 text-center" colSpan={4}>First 5 Utterances (excluding last) (%)</th>
+      </tr>
+      <tr>
+        <th className="border border-gray-300 px-2 py-1">Accuracy</th>
+        <th className="border border-gray-300 px-2 py-1">Precision</th>
+        <th className="border border-gray-300 px-2 py-1">Recall</th>
+        <th className="border border-gray-300 px-2 py-1">F1</th>
+        <th className="border border-gray-300 px-2 py-1">Accuracy</th>
+        <th className="border border-gray-300 px-2 py-1">Precision</th>
+        <th className="border border-gray-300 px-2 py-1">Recall</th>
+        <th className="border border-gray-300 px-2 py-1">F1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border border-gray-300 px-4 py-2">hateBERT</td>
+        <td className="border border-gray-300 px-2 py-1">83.11</td>
+        <td className="border border-gray-300 px-2 py-1">71.05</td>
+        <td className="border border-gray-300 px-2 py-1">80.69</td>
+        <td className="border border-gray-300 px-2 py-1">76.57</td>
+        <td className="border border-gray-300 px-2 py-1">61.67</td>
+        <td className="border border-gray-300 px-2 py-1">61.73</td>
+        <td className="border border-gray-300 px-2 py-1">61.68</td>
+        <td className="border border-gray-300 px-2 py-1">61.70</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 px-4 py-2">hateBERT finetune (toxicity features)</td>
+        <td className="border border-gray-300 px-2 py-1">79.05</td>
+        <td className="border border-gray-300 px-2 py-1">79.33</td>
+        <td className="border border-gray-300 px-2 py-1">79.10</td>
+        <td className="border border-gray-300 px-2 py-1">79.02</td>
+        <td className="border border-gray-300 px-2 py-1">63.81</td>
+        <td className="border border-gray-300 px-2 py-1">63.81</td>
+        <td className="border border-gray-300 px-2 py-1">63.79</td>
+        <td className="border border-gray-300 px-2 py-1">63.78</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 px-4 py-2">hateBERT finetune + MLP</td>
+        <td className="border border-gray-300 px-2 py-1">62.14</td>
+        <td className="border border-gray-300 px-2 py-1">63.13</td>
+        <td className="border border-gray-300 px-2 py-1">61.97</td>
+        <td className="border border-gray-300 px-2 py-1">61.21</td>
+        <td className="border border-gray-300 px-2 py-1">65.24</td>
+        <td className="border border-gray-300 px-2 py-1">65.28</td>
+        <td className="border border-gray-300 px-2 py-1">65.20</td>
+        <td className="border border-gray-300 px-2 py-1">65.17</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+We observed that:
+
+- Using **the full conversation**, HateBERT performs best when the final message contains overt toxicity.
+- When forecasting with only early context, **adding toxicity scores** and **using an MLP** improved performance modestly—though predicting implicit attacks remains hard.
+
+
+## Conclusion
+
+This group project gave us insight into the difficulties of **forecasting toxicity**, especially when early utterances are subtle or polite. While models like HateBERT excel at classifying already-toxic content, **detecting future derailment** requires richer context, better temporal modeling, and perhaps even speaker behavior tracking.
+
+## Future Work
+
+For improvement, we suggest:
+
+- Experimenting with **sequential models** like LSTM or Transformers over the conversation flow
+- Exploring **pragmatic and discourse-level cues** beyond surface text
+- Trying **data augmentation** to address class imbalance and underrepresented toxicity types
+
+> 👥 **Team Members**: This project was a collaboration between Annabella Putri Dirgo, 皮派璽, and 蕊娜妮 for the Pattern Recognition course at National Tsing Hua University.
