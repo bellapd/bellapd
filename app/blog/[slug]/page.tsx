@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { MDXRemote } from "next-mdx-remote";
 import { Navbar } from "@/components/navbar";
 import { getBlogPost, getAllBlogPosts, formatDate } from "@/lib/mdx";
-// import { mdxComponents } from "@/components/mdx-components";
 import { MdxContent } from "@/components/MdxContent";
 import { notFound } from "next/navigation";
 
@@ -98,7 +96,6 @@ export default async function BlogPost({
 
           {/* <div className="aspect-[16/9] bg-muted mb-8" /> */}
           <div className="prose prose-lg dark:prose-invert max-w-none">
-            {/* <MDXRemote {...post.content} components={mdxComponents} /> */}
             <MdxContent content={post.content} />
           </div>
         </article>

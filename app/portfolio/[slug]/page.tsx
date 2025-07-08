@@ -3,7 +3,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { getAllProjects, getProject } from "@/lib/portfolio";
-import { MdxContent } from "@/components/MdxContent"; // ← assumes you already have this
+import Image from "next/image";
+import MdxContentClient from "@/components/MdxContentClient";
 
 export async function generateStaticParams() {
   const projects = await getAllProjects();
@@ -13,9 +14,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await getProject(params.slug);
+  const { slug } = await params;
+  const project = await getProject(slug);
 
   if (!project) {
     return { title: "Project Not Found" };
@@ -30,9 +32,10 @@ export async function generateMetadata({
 export default async function ProjectPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await getProject(params.slug);
+  const { slug } = await params;
+  const project = await getProject(slug);
 
   if (!project) notFound();
 
@@ -65,9 +68,25 @@ export default async function ProjectPage({
             </div>
           </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <MdxContent content={project.content} />
-          </div>
+          {project.image && (
+            <div className="flex justify-center">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={640}
+                height={360}
+                className="aspect-[16/9] object-cover rounded-lg"
+              />
+            </div>
+          )}
+
+          {project.content ? (
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <MdxContentClient content={project.content} />
+            </div>
+          ) : (
+            <p className="text-muted-foreground">No content available.</p>
+          )}
         </article>
       </main>
     </>

@@ -1,0 +1,356 @@
+---
+title: From Eyes to Mind - Classifying Digits Using Brainwaves
+description: "Flipped MNIST on its head by decoding brainwaves instead of pixels"
+technologies: ["Python", "Pytorch", "MNE-Python", "Scipy"]
+date: "2025-06-05"
+published: true
+image: "/img/mnist_1.png"
+---
+
+## The MNIST Twist Nobody Talks About
+
+If you've ever touched machine learning, you’ve probably encountered the **MNIST** dataset: black-and-white images of handwritten digits used to benchmark computer vision models.
+It’s a rite of passage—a “Hello World” for deep learning.
+
+But what happens if we flip the challenge?
+
+Instead of feeding digits to a model, what if we show digits to a human, record their brain signals, and then train a model to predict which digit they saw just from their EEG?
+
+<figure>
+  <img
+    src="/img/mnist_2.png"
+    alt="MNIST Database source: https://en.wikipedia.org/wiki/MNIST_database#"
+  />
+  <figcaption>
+    MNIST Database - Source:{" "}
+    <a href="https://en.wikipedia.org/wiki/MNIST_database#">Wikipedia</a>
+  </figcaption>
+</figure>
+
+## Why use EEG
+
+So why try to decode digits from brainwaves in the first place?
+
+While machine learning has revolutionized fields like image recognition, natural language processing, and speech synthesis, applying those same techniques to EEG data is an entirely different beast.
+
+EEG signals are noisy, highly variable, and often influenced by factors as subtle as blinking or muscle tension. Unlike image pixels, brain signals are messy and harder to interpret. Even the best neural networks struggle to find consistent patterns without intensive preprocessing.
+
+Yet this challenge is exactly what makes EEG fascinating.
+If we can decode something as structured as a digit just from raw brain activity as it opens doors to powerful brain-computer interfaces (BCIs), cognitive monitoring tools, and even non-invasive communication systems.
+
+## Dataset Information
+#### Overview
+- Dataset: **MindBigData-EP-v1.0**
+- Subject: David Vivancos
+- Total Trials: 64344 trials
+- Signal: 2-second EEG trials per digit (0–9)
+- Sampling rate: **128 Hz**
+- Channels used: **14** ["AF3", "F7", "F3", "FC5", "T7", "P7", "O1",
+                 "O2", "P8", "T8", "FC6", "F4", "F8", "AF4"]
+#### Format
+The data has no headers in the files and each corresponding field is separated by a tab character. Here is the explanation cited from the MindBigData documentation[^4]:
+
+**[id]**: a numeric, only for reference purposes.
+
+**[event]** id, a integer, used to distinguish the same event captured at different brain locations, used only by multichannel devices (all except MW).
+
+**[device]**: a 2 character string, to identify the device used to capture the signals, "MW" for MindWave, "EP" for Emotive Epoc, "MU" for Interaxon Muse & "IN" for Emotiv Insight.
+
+**[channel]**: a string, to indentify the 10/20 brain location of the signal, with possible values:
+EPOC	"AF3, "F7", "F3", "FC5", "T7", "P7", "O1", "O2", "P8", "T8", "FC6", "F4", "F8", "AF4"
+
+**[code]**: a integer, to indentify the digit been thought/seen, with possible values 0,1,2,3,4,5,6,7,8,9 or -1 for random captured signals not related to any of the digits.
+
+**[size]**: a integer, to identify the size in number of values captured in the 2 seconds of this signal, since the Hz of each device varies, in "theory" the value is close to 512Hz for MW, 128Hz for EP, 220Hz for MU & 128Hz for IN, for each of the 2 seconds.
+
+**[data]**: a coma separated set of numbers, with the time-series amplitude of the signal, each device uses a different precision to identify the electrical potential captured from the brain: integers in the case of MW & MU or real numbers in the case of EP & IN.
+
+## 3. Environment Setup
+- **Python**: 3.12.2 
+- **CUDA**: 12.4  
+- **Operating System**: Ubuntu 22.04.2 LTS  
+- **GPU**: NVIDIA GeForce RTX 4060  
+
+### Installation Instructions
+Before running the code, You can run the following command:
+
+Install all dependencies from `requirements.txt` into your Conda environment:
+
+   ```
+   conda env create -f requirements.txt
+   ```
+Activate the new environment:
+
+   ```
+   conda activate MBC_BCI
+   ```
+Create a folder named `data/`:
+
+   ```
+   mkdir data
+   ```
+Download the MindBigData EEG dataset:
+
+   ```
+   wget https://www.mindbigdata.com/opendb/MindBigData-EP-v1.0.zip
+   ```
+Unzip the downloaded archive:
+
+   ```
+   unzip MindBigData-EP-v1.0.zip -d data/
+   ```
+Verify that the unzipped files now reside under `data/`.
+
+Once these steps are complete, your EEG files will be available in the `data/` folder and your Conda environment will be ready.
+### Usage Instructions
+The main entry point to run the project is in `main.ipynb`. Activate the conda environment in the kernel and you are good to go. Here is the file structure of the project:
+```
+├── img/                        # Figures used in README or reports (e.g., flowcharts)
+│
+├── models/                    # Saved trained models
+│   ├── model_cnn.pth          # Trained weights of CNN model
+│   └── model_mlp.pth          # Trained weights of MLP model
+│
+├── src/                       # Source code
+│   ├── classifier/            # Model definitions and evaluation
+│   │   ├── cnn.py             # CNN model architecture
+│   │   ├── mlp.py             # MLP model architecture
+│   │   └── eval.py            # Evaluation functions (accuracy, confusion matrix, etc.)
+│   │
+│   ├── asr_utils.py           # Artifact Subspace Reconstruction (ASR) preprocessing functions
+│   ├── data_prep.py           # Data loading, formatting, and conversion utilities
+│   ├── features_utils.py      # Feature extraction from EEG signals
+│   ├── filter_utils.py        # Bandpass filtering and related signal preprocessing
+│   ├── ica_utils.py           # ICA decomposition and ICLabel integration
+│   └── utils.py               # Miscellaneous helper functions such as plotting
+│
+├── main.ipynb                 # Notebook for full training & evaluation workflow
+├── requirements.txt           # Required Python packages for the project
+├── .gitignore                 # Files and folders to ignore in version control
+└── README.md                  # Project documentation
+```
+
+## 4. Model Framework
+
+### Outline of the Architecture
+
+<figure>
+  <img src="/img/mnist_3.png" alt="Model Architecture Flowchart" />
+</figure>
+
+---
+
+### **1. Data Loading `data_prep.py`**
+
+EEG data is loaded from tab-delimited text files using the `load_data()` function. Each trial is reconstructed by grouping 14 specific EEG channels (AF3, F7, ..., AF4) into a `(14, 256)` array. Only valid trials with sufficient length and balanced digit classes (0–9) are kept, up to 6,500 samples per class.
+
+**Returned values:**
+- `eeg_data`: EEG trials of shape `(n_trials, 14, 256)`
+- `digit_labels`: corresponding digit labels
+- `samples_per_class`: number of samples loaded per digit
+
+
+### **2. Data Preprocessing**
+
+The EEG data undergoes several key preprocessing steps:
+
+#### 2.1 **Bandpass Filtering** (`filter_utils.py`)
+
+To remove low-frequency drift and high-frequency noise, a zero-phase 8th-order Butterworth bandpass filter is applied to each channel.
+
+- Frequency range: **1–40 Hz** to capture meaningful EEG rhythms (alpha, beta, etc.)
+- Method: SciPy’s `sosfiltfilt` for zero-phase distortion
+- Function: `bandpass_all_trials()`
+
+#### 2.2 **Artifact Subspace Reconstruction (ASR)** (`asr_utils.py`)
+
+ASR is applied to denoise the EEG trials using a calibrated 4-step procedure:
+
+**Calibration**  
+   Select clean trials based on:
+   - standard deviation
+   - peak-to-peak amplitude
+   - kurtosis thresholds
+
+**Fitting ASR**  
+   Train ASR model on the calibration set (default cutoff = 3.0)
+
+**Denoising All Trials**  
+   Apply the calibrated ASR model to every trial. If a trial fails, fall back to the bandpass-filtered version.
+
+#### 2.3 **Independent Component Analysis (ICA)** (`ica_utils.py`)
+
+To remove structured artifacts (e.g., eye blinks, heartbeats), we apply ICA with ICLabel classification.
+
+- **Fit ICA** on a small subset of ASR-cleaned trials
+- **Label Components** using ICLabel (brain, eye, muscle, etc.)
+- **Remove Non-Brain ICs**, then reconstruct the cleaned signal
+
+
+### **3. Feature Extraction `features_utils.py`**
+
+We extract frequency-domain features using **bandpower from FFT**.
+
+- **Input**: ICA-cleaned EEG `(n_trials, 14, 256)`
+- **Method**: Apply FFT → compute power spectrum → average within bands
+- **Bands**: delta, theta, alpha, beta
+- **Output**: Feature matrix of shape `(n_trials, 14 × 4)`
+
+
+### **4. Model Training and Evaluation `classifier/`**
+
+We compare two neural network models:
+
+#### 4.1 **Convolutional Neural Network (CNN)** (`cnn.py`)
+
+- Architecture: Temporal → Depthwise → Separable convolutions
+- Input: Cleaned EEG of shape `(n_trials, 14, 256)`
+- Output: 10-class softmax
+
+#### 4.2 **Multi-Layer Perceptron (MLP)** (`mlp.py`)
+
+- Architecture: Fully connected layers with ReLU
+- Input: Extracted bandpower features
+- Hidden layers: 512 → 256 → 128 (BatchNorm, ReLU, Dropout)
+- Output: Softmax over 10 classes
+
+### **5. Evaluation `eval.py`**
+
+We evaluate models using the `evaluate_model()` function:
+
+- **Accuracy**: Overall correct predictions
+- **F1 Score (Macro)**: Equal weight across classes
+- **Precision (Macro)**: Class-wise precision average
+- **Recall (Macro)**: Class-wise recall average
+
+Also includes:
+- A **classification report**
+- A **confusion matrix plot** to visualize predictions
+
+## 5. Results
+
+#### ICA Results: 
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <figure>
+    <img src="/img/raw_ica.png" alt="Raw ICA" width="400" />
+    <figcaption className="text-center">Raw</figcaption>
+  </figure>
+  <figure>
+    <img src="/img/filter_ica.png" alt="Filtered ICA" width="400" />
+    <figcaption className="text-center">Bandpass Filtered</figcaption>
+  </figure>
+  <figure>
+    <img src="/img/asr_ica.png" alt="ASR ICA" width="400" />
+    <figcaption className="text-center">Bandpass + ASR</figcaption>
+  </figure>
+</div>
+
+#### The change in the number of recognized ICs for the following EEG datasets:
+
+<table className="table-auto border-collapse w-full text-center">
+  <thead>
+    <tr className="bg-gray-100 dark:bg-gray-800">
+      <th className="border px-4 py-2">Preprocessing</th>
+      <th className="border px-4 py-2">Brain</th>
+      <th className="border px-4 py-2">Muscle</th>
+      <th className="border px-4 py-2">Eye</th>
+      <th className="border px-4 py-2">Heartbeat</th>
+      <th className="border px-4 py-2">Line</th>
+      <th className="border px-4 py-2">Channel Noise</th>
+      <th className="border px-4 py-2">Other</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="border px-4 py-2">Raw</td>
+      <td className="border px-4 py-2">3</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">1</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">10</td>
+    </tr>
+    <tr>
+      <td className="border px-4 py-2">Filtered</td>
+      <td className="border px-4 py-2">7</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">2</td>
+      <td className="border px-4 py-2">1</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">4</td>
+    </tr>
+    <tr className="border-t-2 border-gray-400">
+      <td className="border px-4 py-2">Filtered + ASR</td>
+      <td className="border px-4 py-2">6</td>
+      <td className="border px-4 py-2">1</td>
+      <td className="border px-4 py-2">2</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">0</td>
+      <td className="border px-4 py-2">5</td>
+    </tr>
+  </tbody>
+</table>
+
+### PSD
+<figure>
+  <img src="/img/psd.png" width="600" alt="Power Spectral Density" />
+  <figcaption>Power Spectral Density (PSD) across channels</figcaption>
+</figure>
+
+
+<h3>Classification Results</h3>
+
+<table className="table-auto border-collapse w-full text-center my-4">
+  <thead>
+    <tr className="bg-gray-100 dark:bg-gray-800">
+      <th className="border px-4 py-2">Model</th>
+      <th className="border px-4 py-2">Accuracy</th>
+      <th className="border px-4 py-2">F1 Macro</th>
+      <th className="border px-4 py-2">Precision</th>
+      <th className="border px-4 py-2">Recall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="border px-4 py-2">MLP</td>
+      <td className="border px-4 py-2">12.40%</td>
+      <td className="border px-4 py-2">0.1023</td>
+      <td className="border px-4 py-2">0.1115</td>
+      <td className="border px-4 py-2">0.1234</td>
+    </tr>
+    <tr>
+      <td className="border px-4 py-2">CNN</td>
+      <td className="border px-4 py-2">18.89%</td>
+      <td className="border px-4 py-2">0.1772</td>
+      <td className="border px-4 py-2">0.1816</td>
+      <td className="border px-4 py-2">0.1892</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+  <img src="/img/MLP_output.png" alt="MLP Output" className="rounded-lg shadow" />
+  <img src="/img/CNN_output.png" alt="CNN Output" className="rounded-lg shadow" />
+</div>
+
+## 6. Discussion and Conclusion
+The preprocessing pipeline combining bandpass filtering, ASR, and ICA effectively reduced artifacts in the EEG data, as evidenced by the increase in brain-related components and decreased power in artifact frequency bands. 
+The CNN model trained directly on cleaned EEG signals outperformed the MLP using FFT-based features, achieving 18.9% accuracy versus 12.4%, indicating that learning spatial-temporal patterns from raw signals is advantageous. 
+Although classification accuracy remains modest due to the challenging nature of the MindBigData dataset and low EEG signal-to-noise ratio, the results demonstrate the feasibility of decoding visualized digits from EEG. 
+Future work could focus on improving model architectures, data augmentation, and advanced artifact removal to enhance performance.
+
+This project was my first deep dive into BCI research and it left me hungry to explore more.
+
+## Reference
+
+Mishra, R., Sharma, K., & Bhavsar, A. (2021). Visual Brain Decoding for Short Duration EEG Signals. 2021 29th European Signal Processing Conference (EUSIPCO), 1226–1230. https://doi.org/10.23919/EUSIPCO54536.2021.9616192
+
+Chen, X., Teng, X., Chen, H., Pan, Y., & Geyer, P. (2024). Toward reliable signals decoding for electroencephalogram: A benchmark study to EEGNeX. Biomedical Signal Processing and Control, 87, 105475. https://doi.org/10.1016/j.bspc.2023.105475
+
+Hilty, C., & Zander, C. (2024, May 6). Mindnist. Medium. https://medium.com/@caelenhilty/mindnist-29f6fdda948d#a530
+
+Mindbigdata the mnist of brain digits https://www.mindbigdata.com/opendb/index.html

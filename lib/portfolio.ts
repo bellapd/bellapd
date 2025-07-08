@@ -13,6 +13,7 @@ export interface Project {
   technologies: string[];
   date: string;
   published: boolean;
+  image: string;
 }
 
 export interface ProjectWithContent extends Project {
@@ -52,6 +53,7 @@ export async function getAllProjects(): Promise<Project[]> {
         technologies: data.technologies || [],
         date: data.date || new Date().toISOString(),
         published,
+        image: data.image || "",
       } as Project;
     })
   );
@@ -92,6 +94,7 @@ export async function getProject(
       date: data.date || new Date().toISOString(),
       published: data.published !== false,
       content: mdxSource,
+      image: data.image || "",
     };
   } catch (err) {
     console.error(`❌ Error serializing MDX for ${slug}:`, err);

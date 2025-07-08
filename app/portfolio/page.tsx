@@ -2,9 +2,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { getAllProjects } from "@/lib/portfolio";
+import Image from "next/image";
 
 export default async function PortfolioPage() {
-  const projects = await getAllProjects(); // <-- fetch MDX-based projects
+  const projects = await getAllProjects();
 
   return (
     <>
@@ -32,8 +33,15 @@ export default async function PortfolioPage() {
                     key={project.slug}
                     className="group border border-border overflow-hidden"
                   >
-                    <div className="aspect-[16/9] bg-muted" />
                     <div className="p-4 space-y-2">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        width={640}
+                        height={360}
+                        className="aspect-[16/9] object-cover w-full"
+                      />
+
                       <h2 className="text-xl font-bold">{project.title}</h2>
                       <p className="text-muted-foreground text-sm">
                         {project.description}
@@ -52,8 +60,7 @@ export default async function PortfolioPage() {
                         href={`/portfolio/${project.slug}`}
                         className="animated-underline inline-flex items-center pt-2"
                       >
-                        View Project
-                        <ArrowRight className="ml-1 h-4 w-4" />
+                        View Project →
                       </Link>
                     </div>
                   </div>
